@@ -1,0 +1,7 @@
+.question-container {
+    display: none;
+}
+
+.active-question {
+    display: block;
+}
