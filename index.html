@@ -10,81 +10,31 @@
 <body>
     <div class="container">
         <h1>eCommerce Quiz</h1>
-        <h2>Question <span id="question-number">1</span> of 3:</h2>
         <div class="content-container">
-            <div class="question-container active-question">
-                <p> Which of the following is not a real eCommerce platform?</p>
-                <form action="">
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">Shopify</label>
-                    </div>
-                    <div>    
-                        <input type="radio" id="" name="" value="">
-                        <label for="">WooCommerce</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">ShopCommerce</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">BigCommerce</label>
-                    </div>  
-                </form>
-            </div>
-
-            <div class="question-container">
-                <p>If Shopify is so good, why are Shopify developers necessary?</p>
-                <form action="">
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">To save time on things like store setups and migrations</label>
-                    </div>
-
-                    <div>    
-                        <input type="radio" id="" name="" value="">
-                        <label for="">To extend the limited design options and functionalities of themes with custom code</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">To provide support with a deep understanding of how the platform works and what its limitations are</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">All the above</label>
-                    </div>
-                </form>
-            </div>
-
-            <div class="question-container">
-                <p>Which of the following is true about Shopify developers?</p>
-                <form action="">
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">They are paid extremely well</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">There is a high demand for them</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">They need to know web development, the platform itself, and the liquid template language</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="" name="" value="">
-                        <label for="">All the above</label>
-                    </div>
-                </form>
-            </div>
+            <h2>Question <span id="question-number">1</span> of 3:</h2>
+            <div id="quiz-question" class="question-container">
+                <p id="question">Queston Text</p>
+                <ul>
+                    <li>
+                        <input class="answer" type="radio" id="a" name="answer">
+                        <label for="" id="answer-a">Answer</label>
+                    </li>
+                    <li>    
+                        <input class="answer" type="radio" id="b" name="answer">
+                        <label for="" id="answer-b">Answer</label>
+                    </li>
+                    <li>
+                        <input class="answer" type="radio" id="c" name="answer">
+                        <label for="" id="answer-c">Answer</label>
+                    </li>
+                    <li>
+                        <input class="answer" type="radio" id="d" name="answer">
+                        <label for="" id="answer-d">Answer</label>
+                    </li>  
+                </ul>
+            </div>            
         </div>
-        <button id="next-question"> Next > </button>
+        <button id="next-btn"> Next > </button>
     </div>
     <script src="main.js" type="text/javascript"></script>
 </body>
