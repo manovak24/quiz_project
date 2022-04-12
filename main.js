@@ -15,7 +15,7 @@ const quizQuestions = [
         b: 'WooCommerce',
         c: 'ShopCommerce',
         d: 'BigCommerce',
-        correct: 'ShopCommerce'
+        correct: 'c'
     },
     {
         question: 'If Shopify is so good, why are Shopify developers necessary?',
@@ -23,7 +23,7 @@ const quizQuestions = [
         b: 'To extend the limited design options and functionalities of themes with custom code',
         c: 'To provide support with a deep understanding of how the platform works and what its limitations are',
         d: 'All the above',
-        correct: 'All the above'
+        correct: 'd'
     },
     {
         question: 'Which of the following is true about Shopify developers?',
@@ -31,7 +31,7 @@ const quizQuestions = [
         b: 'There is a high demand for them',
         c: 'They need to know web development, the platform itself, and the liquid template language',
         d: 'All the above',
-        correct: 'All the above'
+        correct: 'd'
     }
 ]
 
@@ -71,6 +71,8 @@ function getAnswer() {
 
 nextButton.addEventListener('click', () => {
     const answer = getAnswer();
+    console.log(answer)
+    console.log(quizQuestions[currentQuestionNumber].correct)
     if(answer) {
         if(answer === quizQuestions[currentQuestionNumber].correct) {
             score++;
