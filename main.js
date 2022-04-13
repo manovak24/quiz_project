@@ -91,7 +91,7 @@ nextButton.addEventListener('click', () => {
             startQuiz();
         } else {
             nextButton.classList.add('hide');
-            quizQuestion.innerHTML = `<h2>You answered ${score} out of ${quizQuestions.length} correct!</h2> <button onClick="location.reload()">Reload</button>`
+            quizQuestion.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button onClick="location.reload()">Reload</button>`
         }
     }
 })
