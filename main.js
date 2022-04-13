@@ -6,10 +6,12 @@ const answerB = document.getElementById('answer-b');
 const answerC = document.getElementById('answer-c');
 const answerD = document.getElementById('answer-d');
 const nextButton = document.getElementById('next-btn');
+const questionNumberDisplay = document.getElementById('question-number');
 
 
 const quizQuestions = [
     {
+        number: 1,
         question: 'Which of the following is not a real eCommerce platform?',
         a: 'Shopify',
         b: 'WooCommerce',
@@ -18,6 +20,7 @@ const quizQuestions = [
         correct: 'c'
     },
     {
+        number: 2,
         question: 'If Shopify is so good, why are Shopify developers necessary?',
         a: 'To save time on things like store setups and migrations',
         b: 'To extend the limited design options and functionalities of themes with custom code',
@@ -26,6 +29,7 @@ const quizQuestions = [
         correct: 'd'
     },
     {
+        number: 3,
         question: 'Which of the following is true about Shopify developers?',
         a: 'They are paid extremely well',
         b: 'There is a high demand for them',
@@ -37,15 +41,19 @@ const quizQuestions = [
 
 let currentQuestionNumber = 0;
 let score = 0;
+let currentNumber = 1;
 
 startQuiz()
 
 function startQuiz() {
     removeSelections()
 
+    questionNumberDisplay.innerText = currentNumber;
+
     //declaring variable to access the question/answers from the quizQuestions array of objects. quizQuestions with the current question number index starting at 0
     const currentQuestion = quizQuestions[currentQuestionNumber];
-    //use variable from above to access questions/answers and use innerText to display on DOM
+    //use variable from above to access question number/questions/answers and use innerText to display on DOM
+    questionNumberDisplay.innerText = currentQuestion.number;
     questionText.innerText = currentQuestion.question;
     answerA.innerText = currentQuestion.a;
     answerB.innerText = currentQuestion.b;
@@ -58,7 +66,7 @@ function removeSelections() {
     answerOptions.forEach(answerOption => answerOption.checked = false);
 }
 
-//creaet function to determine selected answer
+//create function to determine selected answer
 function getAnswer() {
     let answer;
     answerOptions.forEach(answerOption => {
@@ -82,7 +90,8 @@ nextButton.addEventListener('click', () => {
         if(currentQuestionNumber < quizQuestions.length) {
             startQuiz();
         } else {
-            quizQuestion.innerHTML = `<h2>You answered ${score} out of ${quizQuestions.length}</h2> <button onClick="location.reload()">Reload</button>`
+            nextButton.classList.add('hide');
+            quizQuestion.innerHTML = `<h2>You answered ${score} out of ${quizQuestions.length} correct!</h2> <button onClick="location.reload()">Reload</button>`
         }
     }
 })
