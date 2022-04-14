@@ -55,6 +55,7 @@ label {
 }
 
 button {
+    width: 130px;
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 10px 15px;
@@ -71,4 +72,9 @@ button {
 
 .hide {
     display: none;
+}
+
+.reload-btn {
+    background-color: blue;
+    color: #FFFFFF;
 }
