@@ -6,6 +6,7 @@ const answerB = document.getElementById('answer-b');
 const answerC = document.getElementById('answer-c');
 const answerD = document.getElementById('answer-d');
 const nextButton = document.getElementById('next-btn');
+const previousButton = document.getElementById('previous-btn');
 const questionNumberDisplay = document.getElementById('question-number');
 
 
@@ -36,14 +37,12 @@ const quizQuestions = [
         c: 'They need to know web development, the platform itself, and the liquid template language',
         d: 'All the above',
         correct: 'd'
-    }
+    },
 ]
 
 let currentQuestionNumber = 0;
 let score = 0;
 let currentNumber = 1;
-
-startQuiz()
 
 function startQuiz() {
     removeSelections()
@@ -61,6 +60,8 @@ function startQuiz() {
     answerD.innerText = currentQuestion.d;
 }
 
+startQuiz();
+
 //create function to remove any selections to start with clean quiz
 function removeSelections() {
     answerOptions.forEach(answerOption => answerOption.checked = false);
@@ -72,27 +73,48 @@ function getAnswer() {
     answerOptions.forEach(answerOption => {
         if(answerOption.checked) {
             answer = answerOption.id
+            console.log(`this is the answer ${answer} id`)
         }
     })
+    
     return answer;
 }
 
 nextButton.addEventListener('click', () => {
     const answer = getAnswer();
-    console.log(answer)
-    console.log(quizQuestions[currentQuestionNumber].correct)
+    //logging outputs for testin
+    console.log(quizQuestions[currentQuestionNumber].correct);
+
     if(answer) {
         if(answer === quizQuestions[currentQuestionNumber].correct) {
             score++;
         }
-        currentQuestionNumber++
-
+        currentQuestionNumber++;
+        
         if(currentQuestionNumber < quizQuestions.length) {
             startQuiz();
         } else {
             nextButton.classList.add('hide');
-            quizQuestion.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button onClick="location.reload()">Reload</button>`
+            previousButton.classList.add('hide');
+            quizQuestion.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
         }
+    }
+
+    const num = parseInt(questionNumberDisplay.innerText);
+    console.log(num)
+    if(num > 1) {
+        previousButton.classList.remove('hide');
     }
 })
 
+
+
+previousButton.addEventListener('click', () => {
+    currentQuestionNumber--;
+    startQuiz();
+    const num = parseInt(questionNumberDisplay.innerText);
+
+    if(num === 1) {
+        previousButton.classList.add('hide');
+    }
+})
