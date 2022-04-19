@@ -45,7 +45,7 @@ let score = 0;
 let currentNumber = 1;
 
 function startQuiz() {
-    removeSelections()
+    // removeSelections()
 
     questionNumberDisplay.innerText = currentNumber;
 
@@ -80,6 +80,8 @@ function getAnswer() {
     return answer;
 }
 
+let prevAnswer;
+
 nextButton.addEventListener('click', () => {
     const answer = getAnswer();
     //logging outputs for testin
@@ -90,9 +92,11 @@ nextButton.addEventListener('click', () => {
             score++;
         }
         currentQuestionNumber++;
+        prevAnswer = answer;
         
         if(currentQuestionNumber < quizQuestions.length) {
             startQuiz();
+            // removeSelections();
         } else {
             nextButton.classList.add('hide');
             previousButton.classList.add('hide');
@@ -105,6 +109,7 @@ nextButton.addEventListener('click', () => {
     if(num > 1) {
         previousButton.classList.remove('hide');
     }
+    console.log(`This is the prev answer ${prevAnswer}`)
 })
 
 
@@ -112,9 +117,12 @@ nextButton.addEventListener('click', () => {
 previousButton.addEventListener('click', () => {
     currentQuestionNumber--;
     startQuiz();
-    const num = parseInt(questionNumberDisplay.innerText);
 
+    const num = parseInt(questionNumberDisplay.innerText);
     if(num === 1) {
         previousButton.classList.add('hide');
     }
+
+    
+    console.log(`pevAnswer = ${prevAnswer}`)
 })
