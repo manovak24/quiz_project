@@ -7,6 +7,7 @@ const answerC = document.getElementById('answer-c');
 const answerD = document.getElementById('answer-d');
 const nextButton = document.getElementById('next-btn');
 const previousButton = document.getElementById('previous-btn');
+const submitButton = document.getElementById('submit-btn');
 const questionNumberDisplay = document.getElementById('question-number');
 
 
@@ -114,6 +115,10 @@ nextButton.addEventListener('click', () => {
     const num = parseInt(questionNumberDisplay.innerText);
     if(num > 1) {
         previousButton.classList.remove('hide');
+    } 
+    if (num === 3) {
+        submitButton.classList.remove('hide');
+        nextButton.classList.add('hide');
     }
 })
 
