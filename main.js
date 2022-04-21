@@ -46,7 +46,7 @@ let currentNumber = 1;
 let answerStorage = {};
 
 function startQuiz() {
-    // removeSelections()
+    userAnswer();
 
     questionNumberDisplay.innerText = currentNumber;
 
@@ -63,11 +63,6 @@ function startQuiz() {
 
 window.onload = startQuiz();
 
-//create function to remove any selections to start with clean quiz
-function removeSelections() {
-    answerOptions.forEach(answerOption => answerOption.checked = false);
-}
-
 //create function to determine selected answer
 function getAnswer() {
     let answer;
@@ -80,6 +75,17 @@ function getAnswer() {
     
     answerStorage[currentQuestionNumber] = answer;
     return answer;
+}
+
+//create function to remove any selections to start with clean quiz
+function userAnswer() {
+    answerOptions.forEach(answerOption => {
+        if(answerOption.id === answerStorage[currentQuestionNumber]) {
+            answerOption.checked = true;
+         } else {
+            answerOption.checked = false
+         }
+    });
 }
 
 nextButton.addEventListener('click', () => {
@@ -97,7 +103,7 @@ nextButton.addEventListener('click', () => {
         if(currentQuestionNumber < quizQuestions.length) {
             startQuiz();
             // adding the remove selections function here instead of start quiz. Might need to move back to star quiz function
-            removeSelections();
+            
         } else {
             nextButton.classList.add('hide');
             previousButton.classList.add('hide');
@@ -112,27 +118,14 @@ nextButton.addEventListener('click', () => {
 })
 
 previousButton.addEventListener('click', () => {
+    getAnswer();
+
     currentQuestionNumber--;
     startQuiz();
-
     const num = parseInt(questionNumberDisplay.innerText);
     if(num === 1) {
         previousButton.classList.add('hide');
     }
-
-    // for (let i = 0; i < answerOptions.length; i++) {
-    //     console.log(answerOptions[i].value)
-    //     if(answerOptions[i].value === answerStorage[currentQuestionNumber]) {
-    //         answerOptions[i].checked = true;
-            
-    //     }
-    // }
-
-    answerOptions.forEach(answerOption => {
-        if(answerOption.id === answerStorage[currentQuestionNumber]) {
-           answerOption.checked = true;
-        }
-    })
     
     console.log(`This is answer storage at ${currentQuestionNumber}: ${answerStorage[currentQuestionNumber]}`)
 })
