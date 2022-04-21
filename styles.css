@@ -74,7 +74,7 @@ button {
     display: none;
 }
 
-.reload-btn {
+.reload-btn, .submit-btn {
     background-color: blue;
     color: #FFFFFF;
 }
