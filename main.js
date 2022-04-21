@@ -79,10 +79,6 @@ function getAnswer() {
     return answer;
 }
 
-function prevAnswer() {
-    quizQuestions
-}
-
 nextButton.addEventListener('click', () => {
     const answer = getAnswer();
     //logging outputs for testing
@@ -110,8 +106,6 @@ nextButton.addEventListener('click', () => {
         previousButton.classList.remove('hide');
     }
 })
-
-
 
 previousButton.addEventListener('click', () => {
     currentQuestionNumber--;
