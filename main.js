@@ -1,4 +1,4 @@
-const quizQuestion = document.getElementById('quiz-question');
+const quiz = document.getElementById('quiz-question');
 const answerOptions = document.querySelectorAll('.answer');
 const questionText = document.getElementById('question');
 const answerA = document.getElementById('answer-a');
@@ -73,18 +73,19 @@ function getAnswer() {
     answerOptions.forEach(answerOption => {
         if(answerOption.checked) {
             answer = answerOption.id
-            console.log(`this is the answer ${answer} id`)
+            console.log(answer)
         }
     })
-    
     return answer;
 }
 
-let prevAnswer;
+function prevAnswer() {
+    quizQuestions
+}
 
 nextButton.addEventListener('click', () => {
     const answer = getAnswer();
-    //logging outputs for testin
+    //logging outputs for testing
     console.log(quizQuestions[currentQuestionNumber].correct);
 
     if(answer) {
@@ -92,24 +93,22 @@ nextButton.addEventListener('click', () => {
             score++;
         }
         currentQuestionNumber++;
-        prevAnswer = answer;
         
         if(currentQuestionNumber < quizQuestions.length) {
             startQuiz();
-            // removeSelections();
+            // adding the remove selections function here instead of start quiz. Might need to move back to star quiz function
+            removeSelections();
         } else {
             nextButton.classList.add('hide');
             previousButton.classList.add('hide');
-            quizQuestion.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
+            quiz.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
         }
     }
 
     const num = parseInt(questionNumberDisplay.innerText);
-    console.log(num)
     if(num > 1) {
         previousButton.classList.remove('hide');
     }
-    console.log(`This is the prev answer ${prevAnswer}`)
 })
 
 
@@ -122,7 +121,4 @@ previousButton.addEventListener('click', () => {
     if(num === 1) {
         previousButton.classList.add('hide');
     }
-
-    
-    console.log(`pevAnswer = ${prevAnswer}`)
 })
