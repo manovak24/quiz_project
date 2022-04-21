@@ -43,6 +43,7 @@ const quizQuestions = [
 let currentQuestionNumber = 0;
 let score = 0;
 let currentNumber = 1;
+let answerStorage = {};
 
 function startQuiz() {
     // removeSelections()
@@ -60,7 +61,7 @@ function startQuiz() {
     answerD.innerText = currentQuestion.d;
 }
 
-startQuiz();
+window.onload = startQuiz();
 
 //create function to remove any selections to start with clean quiz
 function removeSelections() {
@@ -73,13 +74,16 @@ function getAnswer() {
     answerOptions.forEach(answerOption => {
         if(answerOption.checked) {
             answer = answerOption.id
-            console.log(answer)
+            console.log(`this is answer id: ${answerOption.id}`)
         }
     })
+    
+    answerStorage[currentQuestionNumber] = answer;
     return answer;
 }
 
 nextButton.addEventListener('click', () => {
+    console.log(answerStorage);
     const answer = getAnswer();
     //logging outputs for testing
     console.log(quizQuestions[currentQuestionNumber].correct);
@@ -115,4 +119,20 @@ previousButton.addEventListener('click', () => {
     if(num === 1) {
         previousButton.classList.add('hide');
     }
+
+    // for (let i = 0; i < answerOptions.length; i++) {
+    //     console.log(answerOptions[i].value)
+    //     if(answerOptions[i].value === answerStorage[currentQuestionNumber]) {
+    //         answerOptions[i].checked = true;
+            
+    //     }
+    // }
+
+    answerOptions.forEach(answerOption => {
+        if(answerOption.id === answerStorage[currentQuestionNumber]) {
+           answerOption.checked = true;
+        }
+    })
+    
+    console.log(`This is answer storage at ${currentQuestionNumber}: ${answerStorage[currentQuestionNumber]}`)
 })
