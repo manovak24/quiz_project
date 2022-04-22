@@ -50,7 +50,7 @@ let currentQuestionNumber = 0;
 let score = 0;
 let currentNumber = 1;
 let answerStorage = {};
-let disableToggle = null;
+let disableButtons = null;
 
 // create function to display quiz question and answers
 function startQuiz() {
@@ -130,9 +130,9 @@ function displayAlert() {
     var radios = document.getElementsByTagName("input");
      if(!radios[0].checked && !radios[1].checked && !radios[2].checked && !radios[3].checked) {
         alert("Please select an option");
-        disableToggle = false;
+        disableButtons = false;
     } else {
-        disableToggle = true;
+        disableButtons = true;
     }
 }
 
@@ -140,7 +140,7 @@ function displayAlert() {
 nextButton.addEventListener('click', () => {
     displayAlert();
     getAnswer();
-    if(disableToggle) {
+    if(disableButtons) {
         currentQuestionNumber++;
     } 
     startQuiz();
@@ -157,7 +157,7 @@ previousButton.addEventListener('click', () => {
 submitButton.addEventListener('click', () => {
     displayAlert();
     getAnswer();
-    if(disableToggle) {
+    if(disableButtons) {
         calcScore();
         quiz.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
     }
