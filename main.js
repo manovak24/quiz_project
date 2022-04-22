@@ -10,7 +10,6 @@ const previousButton = document.getElementById('previous-btn');
 const submitButton = document.getElementById('submit-btn');
 const questionNumberDisplay = document.getElementById('question-number');
 
-
 const quizQuestions = [
     {
         number: 1,
@@ -48,9 +47,7 @@ let answerStorage = {};
 
 function startQuiz() {
     userAnswer();
-
     questionNumberDisplay.innerText = currentNumber;
-
     //declaring variable to access the question/answers from the quizQuestions array of objects. quizQuestions with the current question number index starting at 0
     const currentQuestion = quizQuestions[currentQuestionNumber];
     //use variable from above to access question number/questions/answers and use innerText to display on DOM
@@ -64,6 +61,25 @@ function startQuiz() {
 
 window.onload = startQuiz();
 
+function buttonToggle(num) {
+    if(num === 0) {
+        previousButton.classList.add('hide');
+        nextButton.classList.remove('hide');
+        submitButton.classList.add('hide');
+    }
+
+    if(num === 1) {
+        previousButton.classList.remove('hide');
+        nextButton.classList.remove('hide');
+        submitButton.classList.add('hide');
+    }
+
+    if(num === 2) {
+        submitButton.classList.remove('hide');
+        nextButton.classList.add('hide')
+    }
+}
+
 //create function to determine selected answer
 function getAnswer() {
     let answer;
@@ -73,7 +89,6 @@ function getAnswer() {
             console.log(`this is answer id: ${answerOption.id}`)
         }
     })
-    
     answerStorage[currentQuestionNumber] = answer;
     return answer;
 }
@@ -90,47 +105,26 @@ function userAnswer() {
 }
 
 nextButton.addEventListener('click', () => {
-    console.log(answerStorage);
     const answer = getAnswer();
-    //logging outputs for testing
-    console.log(quizQuestions[currentQuestionNumber].correct);
-
     if(answer) {
         if(answer === quizQuestions[currentQuestionNumber].correct) {
             score++;
         }
+
         currentQuestionNumber++;
-        
+        buttonToggle(currentQuestionNumber);
+
         if(currentQuestionNumber < quizQuestions.length) {
             startQuiz();
-            // adding the remove selections function here instead of start quiz. Might need to move back to star quiz function
-            
         } else {
-            nextButton.classList.add('hide');
-            previousButton.classList.add('hide');
             quiz.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
         }
-    }
-
-    const num = parseInt(questionNumberDisplay.innerText);
-    if(num > 1) {
-        previousButton.classList.remove('hide');
-    } 
-    if (num === 3) {
-        submitButton.classList.remove('hide');
-        nextButton.classList.add('hide');
-    }
+    }   
 })
 
 previousButton.addEventListener('click', () => {
     getAnswer();
-
     currentQuestionNumber--;
     startQuiz();
-    const num = parseInt(questionNumberDisplay.innerText);
-    if(num === 1) {
-        previousButton.classList.add('hide');
-    }
-    
-    console.log(`This is answer storage at ${currentQuestionNumber}: ${answerStorage[currentQuestionNumber]}`)
+    buttonToggle(currentQuestionNumber);
 })
