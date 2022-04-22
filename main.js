@@ -1,3 +1,4 @@
+// declare const variables
 const quiz = document.getElementById('quiz-question');
 const answerOptions = document.querySelectorAll('.answer');
 const questionText = document.getElementById('question');
@@ -10,6 +11,7 @@ const previousButton = document.getElementById('previous-btn');
 const submitButton = document.getElementById('submit-btn');
 const questionNumberDisplay = document.getElementById('question-number');
 
+// declare question objects inside array
 const quizQuestions = [
     {
         storageNum: 0,
@@ -43,18 +45,20 @@ const quizQuestions = [
     },
 ]
 
+// declare let variables
 let currentQuestionNumber = 0;
 let score = 0;
 let currentNumber = 1;
 let answerStorage = {};
 let disableToggle = null;
 
+// create function to display quiz question and answers
 function startQuiz() {
     userAnswer();
     questionNumberDisplay.innerText = currentNumber;
-    //declaring variable to access the question/answers from the quizQuestions array of objects. quizQuestions with the current question number index starting at 0
+    // declaring variable to access the question/answers from the quizQuestions array of objects. quizQuestions with the current question number index starting at 0
     const currentQuestion = quizQuestions[currentQuestionNumber];
-    //use variable from above to access question number/questions/answers and use innerText to display on DOM
+    // use variable from above to access question number/questions/answers and use innerText to display on DOM
     questionNumberDisplay.innerText = currentQuestion.number;
     questionText.innerText = currentQuestion.question;
     answerA.innerText = currentQuestion.a;
@@ -63,8 +67,10 @@ function startQuiz() {
     answerD.innerText = currentQuestion.d;
 }
 
+// create window onload to start quiz
 window.onload = startQuiz();
 
+// create function to toggle the quiz buttons
 function buttonToggle(num) {
     if(num === 0) {
         previousButton.classList.add('hide');
@@ -84,7 +90,7 @@ function buttonToggle(num) {
     }
 }
 
-//create function to determine selected answer
+// create function to determine selected answer
 function getAnswer() {
     let answer;
     answerOptions.forEach(answerOption => {
@@ -96,7 +102,7 @@ function getAnswer() {
     return answer;
 }
 
-//create function to remove any selections to start with clean quiz
+// create function to remove any selections to start with clean quiz
 function userAnswer() {
     answerOptions.forEach(answerOption => {
         if(answerOption.id === answerStorage[currentQuestionNumber]) {
@@ -107,6 +113,7 @@ function userAnswer() {
     });
 }
 
+// create function to calculate score
 function calcScore() {
     for (let i = 0; i < quizQuestions.length; i++) {
         for(const key in answerStorage) {
@@ -118,6 +125,7 @@ function calcScore() {
     }
 }
 
+// function to display alert if no answer selected
 function displayAlert() {
     var radios = document.getElementsByTagName("input");
      if(!radios[0].checked && !radios[1].checked && !radios[2].checked && !radios[3].checked) {
@@ -128,6 +136,7 @@ function displayAlert() {
     }
 }
 
+// event listeners for buttons
 nextButton.addEventListener('click', () => {
     displayAlert();
     getAnswer();
