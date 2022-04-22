@@ -12,6 +12,7 @@ const questionNumberDisplay = document.getElementById('question-number');
 
 const quizQuestions = [
     {
+        storageNum: 0,
         number: 1,
         question: 'Which of the following is not a real eCommerce platform?',
         a: 'Shopify',
@@ -21,6 +22,7 @@ const quizQuestions = [
         correct: 'c'
     },
     {
+        storageNum: 1,
         number: 2,
         question: 'If Shopify is so good, why are Shopify developers necessary?',
         a: 'To save time on things like store setups and migrations',
@@ -30,6 +32,7 @@ const quizQuestions = [
         correct: 'd'
     },
     {
+        storageNum: 2,
         number: 3,
         question: 'Which of the following is true about Shopify developers?',
         a: 'They are paid extremely well',
@@ -104,22 +107,22 @@ function userAnswer() {
     });
 }
 
+function calcScore() {
+    for (let i = 0; i < quizQuestions.length; i++) {
+        for(const key in answerStorage) {
+            let keyVal = parseInt(key);
+            if(keyVal === quizQuestions[i].storageNum && answerStorage[keyVal] === quizQuestions[i].correct){
+                score++
+            }
+        }
+    }
+}
+
 nextButton.addEventListener('click', () => {
-    const answer = getAnswer();
-    if(answer) {
-        if(answer === quizQuestions[currentQuestionNumber].correct) {
-            score++;
-        }
-
-        currentQuestionNumber++;
-        buttonToggle(currentQuestionNumber);
-
-        if(currentQuestionNumber < quizQuestions.length) {
-            startQuiz();
-        } else {
-            quiz.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
-        }
-    }   
+    getAnswer();
+    currentQuestionNumber++;
+    startQuiz();
+    buttonToggle(currentQuestionNumber);
 })
 
 previousButton.addEventListener('click', () => {
@@ -127,4 +130,11 @@ previousButton.addEventListener('click', () => {
     currentQuestionNumber--;
     startQuiz();
     buttonToggle(currentQuestionNumber);
+})
+
+submitButton.addEventListener('click', () => {
+    getAnswer();
+    calcScore();
+    quiz.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
+
 })
