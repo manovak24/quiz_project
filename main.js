@@ -47,6 +47,7 @@ let currentQuestionNumber = 0;
 let score = 0;
 let currentNumber = 1;
 let answerStorage = {};
+let disableToggle = null;
 
 function startQuiz() {
     userAnswer();
@@ -89,7 +90,6 @@ function getAnswer() {
     answerOptions.forEach(answerOption => {
         if(answerOption.checked) {
             answer = answerOption.id
-            console.log(`this is answer id: ${answerOption.id}`)
         }
     })
     answerStorage[currentQuestionNumber] = answer;
@@ -118,9 +118,22 @@ function calcScore() {
     }
 }
 
+function displayAlert() {
+    var radios = document.getElementsByTagName("input");
+     if(!radios[0].checked && !radios[1].checked && !radios[2].checked && !radios[3].checked) {
+        alert("Please select an option");
+        disableToggle = false;
+    } else {
+        disableToggle = true;
+    }
+}
+
 nextButton.addEventListener('click', () => {
+    displayAlert();
     getAnswer();
-    currentQuestionNumber++;
+    if(disableToggle) {
+        currentQuestionNumber++;
+    } 
     startQuiz();
     buttonToggle(currentQuestionNumber);
 })
@@ -133,8 +146,10 @@ previousButton.addEventListener('click', () => {
 })
 
 submitButton.addEventListener('click', () => {
+    displayAlert();
     getAnswer();
-    calcScore();
-    quiz.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
-
+    if(disableToggle) {
+        calcScore();
+        quiz.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
+    }
 })
