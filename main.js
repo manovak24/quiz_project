@@ -49,11 +49,11 @@ const quizQuestions = [
 let currentQuestionNumber = 0;
 let score = 0;
 let currentNumber = 1;
-let answerStorage = {};
+let userAnswers = {};
 let disableButtons = null;
 
 // create function to display quiz question and answers
-function startQuiz() {
+function renderCurrentQuestion() {
     userAnswer();
     questionNumberDisplay.innerText = currentNumber;
     // declaring variable to access the question/answers from the quizQuestions array of objects. quizQuestions with the current question number index starting at 0
@@ -68,10 +68,10 @@ function startQuiz() {
 }
 
 // create window onload to start quiz
-window.onload = startQuiz();
+window.onload = renderCurrentQuestion();
 
 // create function to toggle the quiz buttons
-function buttonToggle(num) {
+function toggleButtons(num) {
     if(num === 0) {
         previousButton.classList.add('hide');
         nextButton.classList.remove('hide');
@@ -92,20 +92,24 @@ function buttonToggle(num) {
 
 // create function to determine selected answer
 function getAnswer() {
+    // could simplify this by using the below query selector to get the id of the selected answer and set it to the variable answer istead
+    // let test = document.querySelector('input[type=radio]:checked').id
+    // console.log(`This is the query selector test ${test}`)
     let answer;
     answerOptions.forEach(answerOption => {
         if(answerOption.checked) {
             answer = answerOption.id
         }
     })
-    answerStorage[currentQuestionNumber] = answer;
+    userAnswers[currentQuestionNumber] = answer;
+    console.log(answer)
     return answer;
 }
 
 // create function to remove any selections to start with clean quiz
 function userAnswer() {
     answerOptions.forEach(answerOption => {
-        if(answerOption.id === answerStorage[currentQuestionNumber]) {
+        if(answerOption.id === userAnswers[currentQuestionNumber]) {
             answerOption.checked = true;
          } else {
             answerOption.checked = false
@@ -115,20 +119,17 @@ function userAnswer() {
 
 // create function to calculate score
 function calcScore() {
-    for (let i = 0; i < quizQuestions.length; i++) {
-        for(const key in answerStorage) {
-            let keyVal = parseInt(key);
-            if(keyVal === quizQuestions[i].storageNum && answerStorage[keyVal] === quizQuestions[i].correct){
-                score++
-            }
+    for(const key in userAnswers) {
+        let keyVal = parseInt(key);
+        if(userAnswers[keyVal] === quizQuestions[keyVal].correct){
+            score++
         }
     }
 }
 
 // function to display alert if no answer selected
 function displayAlert() {
-    var radios = document.getElementsByTagName("input");
-     if(!radios[0].checked && !radios[1].checked && !radios[2].checked && !radios[3].checked) {
+     if(!document.querySelector('input[type=radio]:checked')) {
         alert("Please select an option");
         disableButtons = false;
     } else {
@@ -143,15 +144,15 @@ nextButton.addEventListener('click', () => {
     if(disableButtons) {
         currentQuestionNumber++;
     } 
-    startQuiz();
-    buttonToggle(currentQuestionNumber);
+    renderCurrentQuestion();
+    toggleButtons(currentQuestionNumber);
 })
 
 previousButton.addEventListener('click', () => {
     getAnswer();
     currentQuestionNumber--;
-    startQuiz();
-    buttonToggle(currentQuestionNumber);
+    renderCurrentQuestion();
+    toggleButtons(currentQuestionNumber);
 })
 
 submitButton.addEventListener('click', () => {
