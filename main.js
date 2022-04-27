@@ -14,8 +14,6 @@ const questionNumberDisplay = document.getElementById('question-number');
 // declare question objects inside array
 const quizQuestions = [
     {
-        storageNum: 0,
-        number: 1,
         question: 'Which of the following is not a real eCommerce platform?',
         a: 'Shopify',
         b: 'WooCommerce',
@@ -24,8 +22,6 @@ const quizQuestions = [
         correct: 'c'
     },
     {
-        storageNum: 1,
-        number: 2,
         question: 'If Shopify is so good, why are Shopify developers necessary?',
         a: 'To save time on things like store setups and migrations',
         b: 'To extend the limited design options and functionalities of themes with custom code',
@@ -34,8 +30,6 @@ const quizQuestions = [
         correct: 'd'
     },
     {
-        storageNum: 2,
-        number: 3,
         question: 'Which of the following is true about Shopify developers?',
         a: 'They are paid extremely well',
         b: 'There is a high demand for them',
@@ -46,25 +40,20 @@ const quizQuestions = [
 ]
 
 // declare let variables
-let currentQuestionNumber = 0;
+let currentQuestionIndex = 0;
 let score = 0;
-let currentNumber = 1;
 let userAnswers = {};
-let disableButtons = null;
+let canProceed = null;
 
 // create function to display quiz question and answers
 function renderCurrentQuestion() {
     userAnswer();
-    questionNumberDisplay.innerText = currentNumber;
-    // declaring variable to access the question/answers from the quizQuestions array of objects. quizQuestions with the current question number index starting at 0
-    const currentQuestion = quizQuestions[currentQuestionNumber];
-    // use variable from above to access question number/questions/answers and use innerText to display on DOM
-    questionNumberDisplay.innerText = currentQuestion.number;
-    questionText.innerText = currentQuestion.question;
-    answerA.innerText = currentQuestion.a;
-    answerB.innerText = currentQuestion.b;
-    answerC.innerText = currentQuestion.c;
-    answerD.innerText = currentQuestion.d;
+    questionNumberDisplay.innerText = currentQuestionIndex + 1;
+    questionText.innerText = quizQuestions[currentQuestionIndex].question;
+    answerA.innerText = quizQuestions[currentQuestionIndex].a;
+    answerB.innerText = quizQuestions[currentQuestionIndex].b;
+    answerC.innerText = quizQuestions[currentQuestionIndex].c;
+    answerD.innerText = quizQuestions[currentQuestionIndex].d;
 }
 
 // create window onload to start quiz
@@ -101,7 +90,7 @@ function getAnswer() {
             answer = answerOption.id
         }
     })
-    userAnswers[currentQuestionNumber] = answer;
+    userAnswers[currentQuestionIndex] = answer;
     console.log(answer)
     return answer;
 }
@@ -109,7 +98,7 @@ function getAnswer() {
 // create function to remove any selections to start with clean quiz
 function userAnswer() {
     answerOptions.forEach(answerOption => {
-        if(answerOption.id === userAnswers[currentQuestionNumber]) {
+        if(answerOption.id === userAnswers[currentQuestionIndex]) {
             answerOption.checked = true;
          } else {
             answerOption.checked = false
@@ -128,37 +117,37 @@ function calcScore() {
 }
 
 // function to display alert if no answer selected
-function displayAlert() {
+function checkForAnswer() {
      if(!document.querySelector('input[type=radio]:checked')) {
         alert("Please select an option");
-        disableButtons = false;
+        canProceed = false;
     } else {
-        disableButtons = true;
+        canProceed = true;
     }
 }
 
 // event listeners for buttons
 nextButton.addEventListener('click', () => {
-    displayAlert();
+    checkForAnswer();
     getAnswer();
-    if(disableButtons) {
-        currentQuestionNumber++;
+    if(canProceed) {
+        currentQuestionIndex++;
     } 
     renderCurrentQuestion();
-    toggleButtons(currentQuestionNumber);
+    toggleButtons(currentQuestionIndex);
 })
 
 previousButton.addEventListener('click', () => {
     getAnswer();
-    currentQuestionNumber--;
+    currentQuestionIndex--;
     renderCurrentQuestion();
-    toggleButtons(currentQuestionNumber);
+    toggleButtons(currentQuestionIndex);
 })
 
 submitButton.addEventListener('click', () => {
-    displayAlert();
+    checkForAnswer();
     getAnswer();
-    if(disableButtons) {
+    if(canProceed) {
         calcScore();
         quiz.innerHTML = `<h4>You answered ${score} out of ${quizQuestions.length} correct!</h4> <button class="reload-btn" onClick="location.reload()">Reload</button>`
     }
