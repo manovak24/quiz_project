@@ -46,12 +46,17 @@ li {
 }
 
 input[type="radio"] {
-    cursor: pointer;
     width: 25px;
 }
 
-label {
+input[type="radio"]:hover {
     cursor: pointer;
+    opacity: .5;
+}
+
+label:hover {
+    cursor: pointer;
+    opacity: .5;
 }
 
 button {
