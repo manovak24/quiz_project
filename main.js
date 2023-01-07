@@ -10,6 +10,7 @@ const nextButton = document.getElementById('next-btn');
 const previousButton = document.getElementById('previous-btn');
 const submitButton = document.getElementById('submit-btn');
 const questionNumberDisplay = document.getElementById('question-number');
+const totalQuestions = document.getElementById('total-questions');
 
 // declare question objects inside array
 const quizQuestions = [
@@ -38,17 +39,26 @@ const quizQuestions = [
         correct: 'd'
     },
     {
-        question: 'Which of the following is true about Shopify developers?',
-        a: 'They are paid extremely well',
-        b: 'There is a high demand for them',
-        c: 'They need to know web development, the platform itself, and the liquid template language',
+        question: 'When do Shopify developers tend to perform their best work?',
+        a: 'Morning',
+        b: 'Afternoon',
+        c: 'Night',
         d: 'All the above',
         correct: 'd'
+    },
+    {
+        question: 'Are websites essential to modern businesses',
+        a: 'Yes',
+        b: 'No',
+        c: 'Is this a trick?',
+        d: 'Websites are not the future',
+        correct: 'a'
     },
 ]
 
 // declare let variables
 let currentQuestionIndex = 0;
+let totalQuestionIndex = quizQuestions.length;
 let lastQuestionIndex = quizQuestions.length - 1;
 let score = 0;
 let userAnswers = {};
@@ -59,6 +69,7 @@ let canProceed = null;
 function renderCurrentQuestion() {
     userAnswer();
     questionNumberDisplay.innerText = currentQuestionIndex + 1;
+    totalQuestions.innerText = totalQuestionIndex;
     questionText.innerText = quizQuestions[currentQuestionIndex].question;
     answerA.innerText = quizQuestions[currentQuestionIndex].a;
     answerB.innerText = quizQuestions[currentQuestionIndex].b;
