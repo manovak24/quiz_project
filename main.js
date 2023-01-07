@@ -37,13 +37,23 @@ const quizQuestions = [
         d: 'All the above',
         correct: 'd'
     },
+    {
+        question: 'Which of the following is true about Shopify developers?',
+        a: 'They are paid extremely well',
+        b: 'There is a high demand for them',
+        c: 'They need to know web development, the platform itself, and the liquid template language',
+        d: 'All the above',
+        correct: 'd'
+    },
 ]
 
 // declare let variables
 let currentQuestionIndex = 0;
+let lastQuestionIndex = quizQuestions.length - 1;
 let score = 0;
 let userAnswers = {};
 let canProceed = null;
+
 
 // create function to display quiz question and answers
 function renderCurrentQuestion() {
@@ -67,13 +77,13 @@ function toggleButtons(num) {
         submitButton.classList.add('hide');
     }
 
-    if(num === 1) {
+    if(num < lastQuestionIndex) {
         previousButton.classList.remove('hide');
         nextButton.classList.remove('hide');
         submitButton.classList.add('hide');
     }
 
-    if(num === 2) {
+    if(num === lastQuestionIndex) {
         submitButton.classList.remove('hide');
         nextButton.classList.add('hide')
     }
@@ -135,6 +145,8 @@ nextButton.addEventListener('click', () => {
     } 
     renderCurrentQuestion();
     toggleButtons(currentQuestionIndex);
+    console.log(currentQuestionIndex)
+
 })
 
 previousButton.addEventListener('click', () => {
