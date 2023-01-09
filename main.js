@@ -112,7 +112,7 @@ function getAnswer() {
         }
     })
     userAnswers[currentQuestionIndex] = answer;
-    console.log(answer)
+    // console.log(answer)
     return answer;
 }
 
@@ -156,7 +156,7 @@ nextButton.addEventListener('click', () => {
     } 
     renderCurrentQuestion();
     toggleButtons(currentQuestionIndex);
-    console.log(currentQuestionIndex)
+    // console.log(currentQuestionIndex)
 
 })
 
